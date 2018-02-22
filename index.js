@@ -78,7 +78,7 @@ function fontStretch(style) {
 }
 
 function lineHeight(style) {
-  if (style == null) return "";
+  if (style == null || style.lineHeight === undefined) return "";
   const height = style.lineHeight / style.fontSize;
   return `line-height: ${Math.round(height * 100) / 100};`;
 }
