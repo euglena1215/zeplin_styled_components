@@ -1,18 +1,10 @@
-/*
-======= for debug =======
-function layer(context, layer) {
-  return {
-    code:  JSON.stringify({ "context": context, "layer": layer}),
-    language: "json"
-  };
-}
-*/
+const DEBUG = false;
 
 function layer(context, layer) {
   const style =
     layer.textStyles.length === 0 ? null : layer.textStyles[0].textStyle;
-  const code = `
-const component = styled.div\`
+  let code = `
+const Component = styled.div\`
   ${width(layer)}
   ${height(layer)}
   ${fontFamily(style)}
@@ -34,9 +26,16 @@ const component = styled.div\`
     .filter(line => !line.match(/^\s+$/))
     .join("\n");
 
+  let language = "javascript";
+
+  if (DEBUG) {
+    code = JSON.stringify({ context, layer });
+    language = "json";
+  }
+
   return {
-    code: code,
-    language: "javascript"
+    code,
+    language
   };
 }
 
