@@ -3,34 +3,35 @@ const DEBUG = false;
 function layer(context, layer) {
   const style =
     layer.textStyles.length === 0 ? null : layer.textStyles[0].textStyle;
-  let code = `
-const Component = styled.div\`
-  ${width(layer)}
-  ${height(layer)}
-  ${fontFamily(style)}
-  ${fontSize(style)}
-  ${fontWeight(style)}
-  ${fontStyle(style)}
-  ${fontStretch(style)}
-  ${lineHeight(style)}
-  ${textAlign(style)}
-  ${color(style)}
-  ${border(layer)}
-  ${borderRadius(layer)}
-  ${boxShadow(layer)}
-  ${opacity(layer)}
-  ${backgroundColor(layer)}
-\`;
-`
-    .split("\n")
-    .filter(line => !line.match(/^\s+$/))
-    .join("\n");
+
+  const styles = [
+    width(layer),
+    height(layer),
+    fontFamily(style),
+    fontSize(style),
+    fontWeight(style),
+    fontStyle(style),
+    fontStretch(style),
+    lineHeight(style),
+    textAlign(style),
+    color(style),
+    border(layer),
+    borderRadius(layer),
+    boxShadow(layer),
+    opacity(layer),
+    backgroundColor(layer)
+  ].filter(Boolean);
 
   let language = "javascript";
+  let code = `
+const Component = styled.div\`
+  ${styles.join("\n  ")}
+\`;
+`;
 
   if (DEBUG) {
-    code = JSON.stringify({ context, layer });
     language = "json";
+    code = JSON.stringify({ context, layer });
   }
 
   return {
