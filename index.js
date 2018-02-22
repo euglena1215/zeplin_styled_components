@@ -40,11 +40,13 @@ const Component = styled.div\`
 }
 
 function width(layer) {
-  return `width: ${layer.rect.width}px;`;
+  const width = layer.rect.width;
+  return `width: ${Math.round(width)}px;`;
 }
 
 function height(layer) {
-  return `height: ${layer.rect.height}px;`;
+  const height = layer.rect.height;
+  return `height: ${Math.round(height)}px;`;
 }
 
 function fontFamily(style) {
@@ -76,7 +78,8 @@ function fontStretch(style) {
 
 function lineHeight(style) {
   if (style == null) return "";
-  return `line-height: ${style.lineHeight / style.fontSize};`;
+  const height = style.lineHeight / style.fontSize;
+  return `line-height: ${Math.round(height * 100) / 100};`;
 }
 
 function textAlign(style) {
@@ -86,7 +89,7 @@ function textAlign(style) {
 
 function color(style) {
   if (style == null) return "";
-  return `color:  rgba(${style.color.r}, ${style.color.g}, ${style.color.b}, ${
+  return `color: rgba(${style.color.r}, ${style.color.g}, ${style.color.b}, ${
     style.color.a
   });`;
 }
