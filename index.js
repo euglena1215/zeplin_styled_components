@@ -90,9 +90,7 @@ function textAlign(style) {
 
 function color(style) {
   if (style == null) return "";
-  return `color: rgba(${style.color.r}, ${style.color.g}, ${style.color.b}, ${
-    style.color.a
-  });`;
+  return `color: ${formatColor(style.color)};`;
 }
 
 function opacity(layer) {
@@ -102,9 +100,7 @@ function opacity(layer) {
 function border(layer) {
   return layer.borders.length === 0
     ? ""
-    : `border: solid ${layer.borders[0].thickness}px rgba(${layer.borders[0].fill.color.r}, ${
-      layer.borders[0].fill.color.g
-    }, ${layer.borders[0].fill.color.b}, ${layer.borders[0].fill.color.a});`;
+    : `border: solid ${layer.borders[0].thickness}px ${formatColor(layer.borders[0].fill.color)};`;
 }
 
 function borderRadius(layer) {
@@ -118,17 +114,19 @@ function boxShadow(layer) {
     ? ""
     : `box-shadow: ${layer.shadows[0].offsetX}px ${
         layer.shadows[0].offsetY
-      }px ${layer.shadows[0].blurRadius}px ${layer.shadows[0].spread}px rgba(${
-        layer.shadows[0].color.r
-      }, ${layer.shadows[0].color.g}, ${layer.shadows[0].color.b}, ${
-        layer.shadows[0].color.a
+      }px ${layer.shadows[0].blurRadius}px ${layer.shadows[0].spread}px ${formatColor(layer.borders[0].fill.color)}
       });`;
 }
 
 function backgroundColor(layer) {
   return layer.fills.length === 0
     ? ""
-    : `background-color: rgba(${layer.fills[0].color.r}, ${
-        layer.fills[0].color.g
-      }, ${layer.fills[0].color.b}, ${layer.fills[0].color.a})`;
+    : `background-color: ${formatColor(layer.fills[0].color)};`;
+}z
+
+function formatColor(color) {
+  const hex = color.toHex()
+  return color.a === 1
+    ? `#${hex.r}${hex.g}${hex.b}`
+    : `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`
 }
