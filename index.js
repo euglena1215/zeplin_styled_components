@@ -100,7 +100,7 @@ function opacity(layer) {
 function border(layer) {
   return layer.borders.length === 0
     ? ""
-    : `border: solid ${layer.borders[0].thickness}px ${formatColor(layer.borders[0].fill.color)};`;
+    : `border: solid ${Math.round(layer.borders[0].thickness)}px ${formatColor(layer.borders[0].fill.color)};`;
 }
 
 function borderRadius(layer) {
@@ -112,10 +112,11 @@ function borderRadius(layer) {
 function boxShadow(layer) {
   return layer.shadows.length === 0
     ? ""
-    : `box-shadow: ${layer.shadows[0].offsetX}px ${
+    : `box-shadow: ${Math.round(layer.shadows[0].offsetX)}px ${Math.round(
         layer.shadows[0].offsetY
-      }px ${layer.shadows[0].blurRadius}px ${layer.shadows[0].spread}px ${formatColor(layer.borders[0].fill.color)}
-      });`;
+      )}px ${Math.round(layer.shadows[0].blurRadius)}px ${
+        Math.round(layer.shadows[0].spread)
+      }px ${formatColor(layer.borders[0].fill.color)};`;
 }
 
 function backgroundColor(layer) {
