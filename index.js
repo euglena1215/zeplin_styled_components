@@ -102,7 +102,9 @@ function opacity(layer) {
 function border(layer) {
   return layer.borders.length === 0
     ? ""
-    : `border: solid ${JSON.stringify(layer.borders)};`;
+    : `border: solid ${layer.borders[0].thickness}px rgba(${layer.borders[0].fill.color.r}, ${
+      layer.borders[0].fill.color.g
+    }, ${layer.borders[0].fill.color.b}, ${layer.borders[0].fill.color.a});`;
 }
 
 function borderRadius(layer) {
