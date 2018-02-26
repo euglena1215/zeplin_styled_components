@@ -106,7 +106,7 @@ function border(layer) {
 function borderRadius(layer) {
   return layer.borderRadius === 0
     ? ""
-    : `border-radius: ${layer.borderRadius};`;
+    : `border-radius: ${layer.borderRadius}px;`;
 }
 
 function boxShadow(layer) {
