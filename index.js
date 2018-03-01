@@ -3,7 +3,7 @@ const DEBUG = false;
 function layer(context, layer) {
   try {
     const style =
-    layer.textStyles.length === 0 ? null : layer.textStyles[0].textStyle;
+      layer.textStyles.length === 0 ? null : layer.textStyles[0].textStyle;
 
     const styles = [
       width(layer),
