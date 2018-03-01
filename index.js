@@ -1,43 +1,50 @@
 const DEBUG = false;
 
 function layer(context, layer) {
-  const style =
-    layer.textStyles.length === 0 ? null : layer.textStyles[0].textStyle;
+  try {
+    const style =
+      layer.textStyles.length === 0 ? null : layer.textStyles[0].textStyle;
 
-  const styles = [
-    width(layer),
-    height(layer),
-    fontFamily(style),
-    fontSize(style),
-    fontWeight(style),
-    fontStyle(style),
-    fontStretch(style),
-    lineHeight(style),
-    textAlign(style),
-    color(style),
-    border(layer),
-    borderRadius(layer),
-    boxShadow(layer),
-    opacity(layer),
-    backgroundColor(layer)
-  ].filter(Boolean);
+    const styles = [
+      width(layer),
+      height(layer),
+      fontFamily(style),
+      fontSize(style),
+      fontWeight(style),
+      fontStyle(style),
+      fontStretch(style),
+      lineHeight(style),
+      textAlign(style),
+      color(style),
+      border(layer),
+      borderRadius(layer),
+      boxShadow(layer),
+      opacity(layer),
+      backgroundColor(layer)
+    ].filter(Boolean);
 
-  let language = "javascript";
-  let code = `
+    let language = "javascript";
+    let code = `
 const Component = styled.div\`
   ${styles.join("\n  ")}
 \`;
 `;
 
-  if (DEBUG) {
-    language = "json";
-    code = JSON.stringify({ context, layer });
-  }
+    if (DEBUG) {
+      language = "json";
+      code = JSON.stringify({ context, layer });
+    }
 
-  return {
-    code,
-    language
-  };
+    return {
+      code,
+      language
+    };  
+  } catch (e) {
+    return {
+      code: e.message,
+      language: "text"
+    };
+  }
 }
 
 function width(layer) {
